@@ -5,8 +5,8 @@
 #include <HTTPClient.h>
 
 // Wi-Fi credentials
-const char* ssid = "NETGEAR86";
-const char* password = "zanyflower374";
+char ssid = "NETGEAR86";
+char password = "************"; //covering my password due to public repository
 
 // Create DHT20 object
 DHT20 dht20;
@@ -21,7 +21,7 @@ void setup() {
   }
   Serial.println("Connected to WiFi!");
 
-  Wire.begin(21, 22);  // Initialize I2C on GPIO 21 (SDA) and GPIO 22 (SCL)
+  Wire.begin(21, 22);  // initialize I2C on pin 21 and pin 22 
 
   if (!dht20.begin()) {
     Serial.println("Failed to initialize DHT20 sensor!");
@@ -30,21 +30,21 @@ void setup() {
 }
 
 void loop() {
-  // Trigger a sensor read
+  // trigger a sensor read
   int result = dht20.read();  // This will block for about 45 milliseconds
 
-  // Check if the read was successful
+  // check if the read was successful
   if (result != DHT20_OK) {
     Serial.println("Error reading from DHT20 sensor!");
-    delay(2000);  // Wait before trying again
+    delay(2000);  
     return;
   }
 
-  // Retrieve the humidity and temperature values
-  float temperature = dht20.getTemperature();  // Get the last temperature reading
-  float humidity = dht20.getHumidity();  // Get the last humidity reading
+  // retrieve the humidity and temperature values
+  float temperature = dht20.getTemperature();  // get the temperature reading
+  float humidity = dht20.getHumidity();  // get the humidity reading
 
-  // Check if the readings are valid
+  // check if the readings are valid
   if (isnan(temperature) || isnan(humidity)) {
     Serial.println("Error reading valid data from DHT20 sensor!");
   } else {
@@ -60,8 +60,8 @@ void loop() {
     // Send data to Flask server (GET request)
     HTTPClient http;
     String serverPath = "http://3.131.82.246:5000/?temperature=" + String(temperature) + "&humidity=" + String(humidity);
-    http.begin(serverPath);  // Specify the URL
-    int httpResponseCode = http.GET();  // Send GET request
+    http.begin(serverPath);  // specify the URL
+    int httpResponseCode = http.GET();  // send GET request
 
     if (httpResponseCode > 0) {
       Serial.print("HTTP Response code: ");
@@ -73,5 +73,5 @@ void loop() {
     http.end();  // Close the connection
   }
 
-  delay(2000);  // Wait 2 seconds before the next reading
+  delay(2000);  // wait 2 seconds before the next reading
 }
