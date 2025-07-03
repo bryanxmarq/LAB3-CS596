@@ -1,6 +1,6 @@
-# LAB3-CS596
+# IOT Traffic Light 
 
-Participants: Bryan Marquez Aguilar and Brian Guzman
+Participants: Bryan Marquez Aguilar
 
 Lab 3 Video:
 
