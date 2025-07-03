@@ -1,4 +1,4 @@
-# IOT Traffic Light 
+# IOT Temperature & Humidity Sensor
 
 Participants: Bryan Marquez Aguilar
 
